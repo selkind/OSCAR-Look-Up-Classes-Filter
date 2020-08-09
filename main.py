@@ -25,7 +25,7 @@ def main(file_path):
 if __name__ == "__main__":
     logging.basicConfig(
         format="%(asctime)s\n%(levelname)s: %(message)s\n", 
-        datefmt="%Y/%m/%d %I:%M%S %p", level=logging.DEBUG)
+        datefmt="%Y/%m/%d %I:%M:%S %p", level=logging.DEBUG)
 
     parser = argparse.ArgumentParser()
     parser.add_argument(
