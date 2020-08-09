@@ -1,11 +1,8 @@
 # course_parser
 ## Usage: 
 1. Do an advanced search with subjects = ["Computational Science & Engr", "Computer Science", "Industrial & Systems Engr", "Public Policy"] and campus = "Online"
-1. use CTRL + A to highlight everyhing on the resulting page.
-1. use CTRL + C to copy the highlighted contents to your clipboard
-1. Open a text editor and use CTRL + V to paste the contents of the search into the text file
-1. Save the text file as "oscar_raw.txt" anywhere (but note the location)
-1. Run this notebook
+1. Use CTRL + S to save the webpage as a local .html file
+1. Run the main.py script with the absolute path to the file as a single argument
 
 #### With such a basic use of pd.read_html() some filtering is required to get at the table I'm interested in
 - the course table is the 6th item of the returned object
