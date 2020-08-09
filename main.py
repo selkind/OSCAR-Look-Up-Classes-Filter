@@ -10,11 +10,16 @@ table_top_level_index = "Computational Science & Engr"
 def main(file_path):
     with open(file_path, 'r') as f:
         data = pd.read_html(f)
+
     logging.info("Raw data loaded")
 
     table_data = data[contents_key][table_top_level_index]
+
     logging.debug(table_data["Subj"].unique())
 
+    subj_filtered_data = table_data[(table_data["Subj"] == "CSE") | (table_data["Subj"] == "CS") | (table_data["Subj"] == "ISYE") | (table_data["Subj"] == "PUBP")]
+
+    logging.debug(subj_filtered_data["Sec"].unique())
 
 
 if __name__ == "__main__":
