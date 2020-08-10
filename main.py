@@ -11,10 +11,10 @@ un_desired_sections = ["OAN", "OCY", "OCL", "OAH"]
 numeric_col_names = ["CRN", "Crse", "Cred", "Cap", "Act", "Rem", "WL Cap", "WL Act", "WL Rem"]
 useful_cols = ["CRN", "Subj", "Crse", "Sec", "Cred", "Title", "Cap", "Act", "Rem", "WL Cap", "WL Act", "WL Rem", "Instructor"]
 SORT_COLUMNS = ["Subj", "WL Act"]
-OUT_PATH = "/mnt/c/Users/samue/Desktop/filtered_table.html"
+DEFAULT_OUT_PATH = "./filtered_courses.html"
 
-def main(file_path):
-    with open(file_path, 'r') as f:
+def main(input_file_path, output_file_path=DEFAULT_OUT_PATH):
+    with open(input_file_path, 'r') as f:
         data = pd.read_html(f)
 
     logging.info("Raw data loaded")
@@ -34,10 +34,10 @@ def main(file_path):
 
     useful_data = section_filtered_data.sort_values(SORT_COLUMNS)[useful_cols]
 
-    with open(OUT_PATH, 'w+') as f_out:
+    with open(output_file_path, 'w+') as f_out:
         f_out.write(useful_data.to_html())
 
-    logging.info(f"Filtered table written to {OUT_PATH}")
+    logging.info(f"Filtered table written to {output_file_path}")
 
 if __name__ == "__main__":
     logging.basicConfig(
@@ -45,14 +45,23 @@ if __name__ == "__main__":
         datefmt="%Y/%m/%d %I:%M:%S %p", level=logging.INFO)
 
     parser = argparse.ArgumentParser()
+
     parser.add_argument(
-        "file_path", 
+        "input_file_path", 
         nargs=1, 
         type=str, 
         metavar="path/to/html/source",
         help="The absolute path to the html file containing the courses searched")
-    args = parser.parse_args()
 
-    logging.info(f"Attempting to parse file: {args.file_path[0]}")
-    main(args.file_path[0])
+    parser.add_argument(
+        "output_file_path", 
+        nargs=1, 
+        type=str, 
+        metavar="path/to/html/output",
+        help="The absolute path to the html file containing the filtered courses")
+    args = parser.parse_args()
+    logging.debug(args)
+
+    logging.info(f"Attempting to parse file: {args.input_file_path[0]}")
+    main(args.input_file_path[0], args.output_file_path[0])
 
