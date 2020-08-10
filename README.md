@@ -1,5 +1,7 @@
 # Georgia Tech OSCAR Registration helper
-### A quick description of what the script and notebook do.
+### **This is a work in progress** If you'd like to contribute, please fork the repo and open up a PR with your suggested changes. I'll try to review it as quickly as I can.
+## A quick description of what the script and notebook do.
+### If you are and OMSCS student, I would recommend trying the script first and if it doesn't do what you want, use the Notebook to change how the table is filtered and sorted.
 #### The intended input is an html file resulting from an advanced search on the Look Up Classes page.
 #### With such a basic use of pd.read_html() some filtering is required to get at the table I'm interested in
 - the course table is the 6th item of the returned object
