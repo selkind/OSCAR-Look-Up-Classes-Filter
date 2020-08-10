@@ -4,12 +4,12 @@ import pandas as pd
 import pprint as pp
 import logging
 
-contents_key = 5
-table_top_level_index = "Computational Science & Engr"
-desired_subjects = ["CSE", "CS", "ISYE", "PUBP"]
-un_desired_sections = ["OAN", "OCY", "OCL", "OAH"]
-numeric_col_names = ["CRN", "Crse", "Cred", "Cap", "Act", "Rem", "WL Cap", "WL Act", "WL Rem"]
-useful_cols = ["CRN", "Subj", "Crse", "Sec", "Cred", "Title", "Cap", "Act", "Rem", "WL Cap", "WL Act", "WL Rem", "Instructor"]
+CONTENTS_KEY = 5
+TABLE_TOP_LEVEL_INDEX = "Computational Science & Engr"
+DESIRED_SUBJECTS = ["CSE", "CS", "ISYE", "PUBP"]
+UN_DESIRED_SECTIONS = ["OAN", "OCY", "OCL", "OAH"]
+NUMERIC_COL_NAMES = ["CRN", "Crse", "Cred", "Cap", "Act", "Rem", "WL Cap", "WL Act", "WL Rem"]
+USEFUL_COLS = ["CRN", "Subj", "Crse", "Sec", "Cred", "Title", "Cap", "Act", "Rem", "WL Cap", "WL Act", "WL Rem", "Instructor"]
 SORT_COLUMNS = ["Subj", "WL Act"]
 DEFAULT_OUT_PATH = "./filtered_courses.html"
 
@@ -19,20 +19,19 @@ def main(input_file_path, output_file_path=DEFAULT_OUT_PATH):
 
     logging.info("Raw data loaded")
 
-    table_data = data[contents_key][table_top_level_index]
+    table_data = data[CONTENTS_KEY][TABLE_TOP_LEVEL_INDEX]
     logging.debug(table_data["Subj"].unique())
 
-    subj_filtered_data = table_data[table_data["Subj"].isin(desired_subjects)]
+    subj_filtered_data = table_data[table_data["Subj"].isin(DESIRED_SUBJECTS)]
     logging.debug(subj_filtered_data["Subj"].unique())
+
     logging.debug(subj_filtered_data["Sec"].unique())
-
-    section_filtered_data = subj_filtered_data[~subj_filtered_data["Sec"].isin(un_desired_sections)]
-
+    section_filtered_data = subj_filtered_data[~subj_filtered_data["Sec"].isin(UN_DESIRED_SECTIONS)]
     logging.debug(section_filtered_data["Sec"].unique())
 
-    section_filtered_data[numeric_col_names] = section_filtered_data[numeric_col_names].apply(pd.to_numeric, errors="ignore")
+    section_filtered_data[NUMERIC_COL_NAMES] = section_filtered_data[NUMERIC_COL_NAMES].apply(pd.to_numeric, errors="ignore")
 
-    useful_data = section_filtered_data.sort_values(SORT_COLUMNS)[useful_cols]
+    useful_data = section_filtered_data.sort_values(SORT_COLUMNS)[USEFUL_COLS]
 
     with open(output_file_path, 'w+') as f_out:
         f_out.write(useful_data.to_html())
